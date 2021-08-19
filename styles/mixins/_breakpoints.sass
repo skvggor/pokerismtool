@@ -1,0 +1,18 @@
+@use "sass:map"
+
+@mixin add($key, $value)
+  $breakpoints: map.merge($breakpoints, ($key: $value)) !global
+
+$breakpoints: ()
++add("xxs", (min-width: 480px))
++add("xs", (min-width: 667px))
++add("sm", (min-width: 834px))
++add("md", (min-width: 1024px))
++add("lg", (min-width: 1280px))
++add("hd", (min-width: 1440px))
++add("fhd", (min-width: 1920px))
+
+@mixin respond-to($breakpoint)
+  @if map-has-key($breakpoints, $breakpoint)
+    @media #{inspect(map-get($breakpoints, $breakpoint))}
+      @content
