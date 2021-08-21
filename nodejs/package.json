@@ -1,0 +1,39 @@
+{
+  "name": "pokerismtool",
+  "version": "1.0.0",
+  "description": "Planning poker",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/nodemon/bin/nodemon.js server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcker/pokerismtool.git"
+  },
+  "keywords": [
+    "socketio",
+    "planning",
+    "poker",
+    "agile",
+    "webapp",
+    "nodejs",
+    "javascript",
+    "scrum"
+  ],
+  "author": "Marcos Lima",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcker/pokerismtool/issues"
+  },
+  "homepage": "https://github.com/marcker/pokerismtool#readme",
+  "dependencies": {
+    "cash-dom": "^8.1.0",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.12",
+    "socket.io": "^4.1.3"
+  },
+  "engines": {
+    "node": "v14.17.5"
+  }
+}

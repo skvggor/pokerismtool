@@ -1,7 +1,7 @@
 // import styles from '../styles/shared/Home.module.sass'
 
 export default function Home() {
-  const socket = new WebSocket('wss://localhost:8080', 'echo-protocol')
+  const socket = new WebSocket('ws://localhost:8080', 'echo-protocol')
 
   socket.onopen = () => {
     socket.send("Hello!")
