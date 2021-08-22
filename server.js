@@ -23,16 +23,23 @@ app.set('view engine', 'njk')
 
 app.get('/', (request, response) => response.render('index'))
 
+const users = []
+
 io.on('connection', (socket) => {
-  console.log('User is on', socket.id)
+  socket.on('join', (data) => {
+    socket.join(data.room)
 
-  const room = new Date()
+    users.push({ username: data.username, id: socket.id })
 
-  socket.join(room)
+    io.to(data.room).emit('roomCreated', { all: users, room: data.room, username: data.username })
 
-  io.to(room).emit('roomCreated', room)
+    console.log(io.sockets.adapter.rooms.get(data.room))
 
-  console.log('Room', room)
+    console.log(`User '(${data.username})[${socket.id}]' joined room '${data.room}'.`)
+  })
+
+
+  // console.log('Room', room)
 })
 
 server.listen(PORT, () => {

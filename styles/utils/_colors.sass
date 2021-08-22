@@ -1,8 +1,0 @@
-@use "sass:map"
-
-@mixin add($key, $value)
-  $colors: map.merge($colors, ($key: $value)) !global
-
-$colors: ()
-+add('black', #000)
-+add('white', #fff)
