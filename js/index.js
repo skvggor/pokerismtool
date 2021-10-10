@@ -4,6 +4,7 @@ const navigation = () => {
   const criarButton = $('.start-page_criar')
   const entrarPage = $('.entrar-page')
   const criarPage = $('.criar-page')
+  const votarPage = $('.votacao-page')
 
   entrarButton.on('click', () => {
     startPage.addClass('-hidden')
@@ -31,11 +32,26 @@ const navigation = () => {
 
     socket.on('connect', () => {
       console.log(socket.id)
+
+      $(document).on('voting', () => {
+
+        console.log('voting...')
+
+        $('.votar').on('click', (event) => {
+          console.log('clicked')
+          socket.emit('vote', {
+            vote: $(event.currentTarget).data('vote'),
+            username: $(username).val()
+          })
+        })
+      })
+
+      $(document).trigger('voting')
     })
 
     socket.on('roomCreated', (data) => {
-      console.log(data)
       criarPage.addClass('-hidden')
+      votarPage.removeClass('-hidden')
     })
   })
 
@@ -53,11 +69,26 @@ const navigation = () => {
 
     socket.on('connect', () => {
       console.log(socket.id)
+
+      $(document).off().on('voting', () => {
+
+        console.log('voting...')
+
+        $('.votar').on('click', (event) => {
+          console.log('clicked')
+          socket.emit('vote', {
+            vote: $(event.currentTarget).data('vote'),
+            username: $(username).val()
+          })
+        })
+      })
+
+      $(document).trigger('voting')
     })
 
     socket.on('roomCreated', (data) => {
-      console.log(data)
       entrarPage.addClass('-hidden')
+      votarPage.removeClass('-hidden')
     })
   })
 }

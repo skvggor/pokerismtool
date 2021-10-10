@@ -42,10 +42,15 @@ io.on('connection', (socket) => {
         username: data.username
       })
 
+    socket.on('vote', (data) => {
+      console.log(data)
+    })
+
     console.log(io.sockets.adapter.rooms.get(data.room))
 
     console.log(`User '(${data.username})[${socket.id}]' joined room '${data.room}'.`)
   })
+
 })
 
 server.listen(PORT, () => {
