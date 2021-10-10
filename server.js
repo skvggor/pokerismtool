@@ -29,19 +29,25 @@ io.on('connection', (socket) => {
   socket.on('join', (data) => {
     socket.join(data.room)
 
-    users.push({ username: data.username, id: socket.id })
+    users.push({
+      username: data.username,
+      id: socket.id
+    })
 
-    io.to(data.room).emit('roomCreated', { all: users, room: data.room, username: data.username })
+    io
+      .to(data.room)
+      .emit('roomCreated', {
+        all: users,
+        room: data.room,
+        username: data.username
+      })
 
     console.log(io.sockets.adapter.rooms.get(data.room))
 
     console.log(`User '(${data.username})[${socket.id}]' joined room '${data.room}'.`)
   })
-
-
-  // console.log('Room', room)
 })
 
 server.listen(PORT, () => {
-  console.log("server up", PORT)
+  console.log("server up", `http://localhost:${PORT}`)
 })

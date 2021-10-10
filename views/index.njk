@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <style>
     .-hidden {
       display: none;
@@ -13,25 +12,66 @@
     .-current {
       background-color: yellow;
     }
+
+    .message {
+      display: block;
+    }
   </style>
   <title>Document</title>
 </head>
 <body>
-  <div class="join">
-    <h1>Entrar na sala</h1>
-    <p>Nome: <input id="username" type="text"></p>
-    <p>Sala: <input id="room" type="text"></p>
-    <button>Entrar</button>
+  <div class="start-page">
+    <h1>Entrar na votação ou criar uma</h1>
+    <p>
+      <button class="start-page_entrar">Entrar</button>
+      <button class="start-page_criar">Criar</button>
+    </p>
   </div>
 
-  <div class="room -hidden">
-    <h1>Olá, <span class="username"></span>. Bem-vindx a sala <span class="roomname"></span></h1>
+  <div class="entrar-page -hidden">
+    <h1>Entrar na votação</h1>
+    <p>
+      Nome:<br>
+      <input type="text" class="entrar-page_nome">
+    </p>
 
-    <ul class="members"></ul>
+    <p>
+      Código da sala de votação:<br>
+      <input type="text" class="entrar-page_sala">
+    </p>
+
+    <p>
+      <button class="entrar-page_entrar">Entrar</button>
+    </p>
+  </div>
+
+  <div class="criar-page -hidden">
+    <h1>Criar votação</h1>
+    <p>
+      Nome:<br>
+      <input type="text" class="criar-page_nome">
+    </p>
+
+    <p>
+      Sala:<br>
+      <input id="hash" type="text" class="criar-page_sala" disabled value="hash">
+      <span class="message">Passe este código aos outros participantes.</span>
+    </p>
+
+    <p>
+      <button class="criar-page_criar">Criar</button>
+    </p>
   </div>
 
   <script src="libs/socket.io/client-dist/socket.io.min.js"></script>
   <script src="libs/cash-dom/dist/cash.min.js"></script>
   <script src="js/index.js"></script>
+  <script>
+    const hash = () => {
+      const inputHash = document.querySelector('#hash').setAttribute('value', `${Math.random().toString(36).substring(2, 15)}`)
+    }
+
+    hash()
+  </script>
 </body>
 </html>

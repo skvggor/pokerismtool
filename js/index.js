@@ -1,47 +1,69 @@
+const navigation = () => {
+  const startPage = $('.start-page')
+  const entrarButton =  $('.start-page_entrar')
+  const criarButton = $('.start-page_criar')
+  const entrarPage = $('.entrar-page')
+  const criarPage = $('.criar-page')
 
-const buttonJoin = $('button')
-
-const join = (event) => {
-  const username = $('#username')
-  const room = $('#room')
-
-  const socket = io()
-
-  socket.emit('join', { username: $(username).val(), room: $(room).val() })
-  // socket.on('connect', () => {
-  //   console.log(socket.id)
-  // })
-
-  socket.on('roomCreated', (data) => {
-    const room = $('.room')
-    const join = $('.join')
-    const roomname = $('.roomname')
-    const username = $('.username')
-    const members = $('.members')
-
-    join.addClass('-hidden')
-    room.removeClass('-hidden')
-
-
-    let listItems = ''
-
-    data.all.map((user) => {
-      listItems += `<li class="${user.id === socket.id ? '-current' : ''}">${user.username}</li>`
-    })
-
-    members
-      .html('')
-      .append(listItems)
-
-    username.text($('.-current').text())
-    roomname.text(data.room)
+  entrarButton.on('click', () => {
+    startPage.addClass('-hidden')
+    entrarPage.removeClass('-hidden')
+    criarPage.addClass('-hidden')
   })
 
-  // socket.on('disconnect', () => {
-  //   console.log(socket.id)
-  // })
+  criarButton.on('click', () => {
+    startPage.addClass('-hidden')
+    entrarPage.addClass('-hidden')
+    criarPage.removeClass('-hidden')
+  })
+
+  const criarRoom = $('.criar-page_criar')
+
+  criarRoom.on('click', () => {
+    const username = $('.criar-page_nome')
+    const room = $('.criar-page_sala')
+    const socket = io()
+
+    socket.emit('join', {
+      username: $(username).val(),
+      room: $(room).val()
+    })
+
+    socket.on('connect', () => {
+      console.log(socket.id)
+    })
+
+    socket.on('roomCreated', (data) => {
+      console.log(data)
+      criarPage.addClass('-hidden')
+    })
+  })
+
+  const entrarRoom = $('.entrar-page_entrar')
+
+  entrarRoom.on('click', () => {
+    const username = $('.entrar-page_nome')
+    const room = $('.entrar-page_sala')
+    const socket = io()
+
+    socket.emit('join', {
+      username: $(username).val(),
+      room: $(room).val()
+    })
+
+    socket.on('connect', () => {
+      console.log(socket.id)
+    })
+
+    socket.on('roomCreated', (data) => {
+      console.log(data)
+      entrarPage.addClass('-hidden')
+    })
+  })
 }
 
-buttonJoin.on('click', join)
+const init = () => {
+  navigation()
+}
 
-
+init()
